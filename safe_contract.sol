@@ -56,7 +56,7 @@ contract safeModule {
         safeCheck(msg.sender);
             // drain funds into new safe 
             // its now someone elses problem
-        executeTransferSafe(beneficiary, amount);
+        _executeTransferSafe(beneficiary, amount);
         emit ExecuteTransferSafe(safeAddress, beneficiary, amount);
     }
     // vote for transferring safe
@@ -130,7 +130,7 @@ contract safeModule {
         lastTransactionTime = block.timestamp;
     }
 
-    function executeTransferSafe(address payable to, uint96 amount) public {
+    function _executeTransferSafe(address payable to, uint96 amount) private {
         // require(creator == msg.sender, "not the same people");
         safe.execTransactionFromModule(to, amount, "", Enum.Operation.Call);
     }
